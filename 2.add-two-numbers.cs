@@ -41,8 +41,21 @@ public class Solution {
         var carry = 0;
         ListNode resultHead = null;
         ListNode resultCurrent = null;
-        while(l1Ptr!=null && l2Ptr!=null){
-            var tempValue = l1Ptr.val + l2Ptr.val+carry;
+        while(l1Ptr!=null || l2Ptr!=null) {
+            var tempValue = 0;
+            if(l1Ptr == null && l2Ptr !=null) {
+                tempValue = l2Ptr.val+carry;
+                l2Ptr = l2Ptr.next;
+            }
+            if(l2Ptr == null && l1Ptr !=null) {
+                tempValue = l1Ptr.val+carry;
+                l1Ptr = l1Ptr.next;
+            }
+            if(l2Ptr != null && l1Ptr !=null) {
+                tempValue = l2Ptr.val + l1Ptr.val+carry;
+                l1Ptr = l1Ptr.next;
+                l2Ptr = l2Ptr.next;
+            }
             carry = tempValue/10;
             var currentSum = new ListNode(tempValue%10);
             if(resultHead==null) {
@@ -53,36 +66,14 @@ public class Solution {
                 resultCurrent.next = currentSum;
                 resultCurrent = currentSum;
             }
-            l1Ptr = l1Ptr.next;
-            l2Ptr = l2Ptr.next;
-        }
-        while(carry!=0 || l1Ptr!=null || l2Ptr!=null) {
-            if(l1Ptr == null && l2Ptr !=null) {
-                var tempValue = l2Ptr.val+carry;
-                carry = tempValue/10;
-                var currentSum = new ListNode(tempValue%10);
-                resultCurrent.next = currentSum;
-                resultCurrent = currentSum;
-                l2Ptr = l2Ptr.next;
-                continue;
-            }
-            if(l2Ptr == null && l1Ptr !=null) {
-                var tempValue = l1Ptr.val+carry;
-                carry = tempValue/10;
-                var currentSum = new ListNode(tempValue%10);
-                resultCurrent.next = currentSum;
-                resultCurrent = currentSum;
-                l1Ptr = l1Ptr.next;
-                continue;
-            }
-            if(carry!=0 && l1Ptr == null && l2Ptr == null) {
-                var currentSum = new ListNode(carry);
-                resultCurrent.next = currentSum;
-                resultCurrent = currentSum;
-                carry=0;
 
-            }
         }
+        if(carry!=0 && l1Ptr == null && l2Ptr == null) {
+            var currentSum = new ListNode(carry);
+            resultCurrent.next = currentSum;
+            resultCurrent = currentSum;
+        }
+
         return resultHead;
 
     }
