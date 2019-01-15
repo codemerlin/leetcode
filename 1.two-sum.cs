@@ -35,9 +35,8 @@ public class Solution {
         var indexVal = new Dictionary<int,int>();
         while(i<nums.Length) {
             int complement = target-nums[i];
-            int temp;
-            if(indexVal.TryGetValue(complement,out temp))
-                return new int[] {temp,i};
+            if(indexVal.ContainsKey(complement))
+                return new int[] {indexVal[complement],i};
             if(indexVal.ContainsKey(nums[i]))
                 indexVal[nums[i]]=i;
             else
