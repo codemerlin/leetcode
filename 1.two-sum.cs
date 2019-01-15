@@ -35,13 +35,13 @@ public class Solution {
         var indexVal = new Dictionary<int,int>();
         while(i<nums.Length) {
             int complement = target-nums[i];
-            if(indexVal.ContainsKey(complement))
-                return new int[] {indexVal[complement],i};
+            int temp;
+            if(indexVal.TryGetValue(complement,out temp))
+                return new int[] {temp,i};
+            if(indexVal.ContainsKey(nums[i]))
+                indexVal[nums[i]]=i;
             else
-                if(indexVal.ContainsKey(nums[i]))
-                    indexVal[nums[i]]=i;
-                else
-                    indexVal.Add(nums[i],i);
+                indexVal.Add(nums[i],i);
             i++;
         }
         return null;
