@@ -41,34 +41,38 @@ public class Solution {
         var carry = 0;
         ListNode resultHead = null;
         ListNode resultCurrent = null;
-        while(l1Ptr!=null || l2Ptr!=null) {
+        while(l2Ptr != null && l1Ptr !=null) {
             var tempValue = 0;
-            if(l1Ptr == null && l2Ptr !=null) {
-                tempValue = l2Ptr.val+carry;
-                l2Ptr = l2Ptr.next;
-            }
-            if(l2Ptr == null && l1Ptr !=null) {
-                tempValue = l1Ptr.val+carry;
-                l1Ptr = l1Ptr.next;
-            }
-            if(l2Ptr != null && l1Ptr !=null) {
-                tempValue = l2Ptr.val + l1Ptr.val+carry;
-                l1Ptr = l1Ptr.next;
-                l2Ptr = l2Ptr.next;
-            }
+            tempValue = l2Ptr.val + l1Ptr.val+carry;
+            l1Ptr = l1Ptr.next;
+            l2Ptr = l2Ptr.next;
             carry = tempValue/10;
             var currentSum = new ListNode(tempValue%10);
             if(resultHead==null) {
                 resultHead = currentSum;
-                resultCurrent = resultHead;
             }
             else {
                 resultCurrent.next = currentSum;
-                resultCurrent = currentSum;
             }
+            resultCurrent = currentSum;
 
         }
-        if(carry!=0 && l1Ptr == null && l2Ptr == null) {
+        ListNode newPtr = null;
+        if(l1Ptr==null)
+            newPtr = l2Ptr; 
+        else if(l2Ptr==null)
+            newPtr = l1Ptr; 
+
+        while(newPtr !=null) {
+            var tempValue = 0;
+            tempValue = newPtr.val+carry;
+            newPtr = newPtr.next;
+            carry = tempValue/10;
+            var currentSum = new ListNode(tempValue%10);
+            resultCurrent.next = currentSum;
+            resultCurrent = currentSum;
+        }
+        if(carry!=0) {
             var currentSum = new ListNode(carry);
             resultCurrent.next = currentSum;
             resultCurrent = currentSum;
