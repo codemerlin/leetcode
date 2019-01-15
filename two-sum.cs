@@ -17,16 +17,20 @@
  * return [0, 1].
  * 
  * [End of Description] */
+using System.Collections.Generic;
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
         var i =0;
+        var indexVal = new Dictionary<int,int>();
         while(i<nums.Length) {
-            var j=i+1;
-            while(j<nums.Length) {
-                if(nums[i]+nums[j]==target)
-                    return new int[] {i,j};
-                j++;
-            }
+            int complement = target-nums[i];
+            if(indexVal.ContainsKey(complement))
+                return new int[] {indexVal[complement],i};
+            else
+                if(indexVal.ContainsKey(nums[i]))
+                    indexVal[nums[i]]=i;
+                else
+                    indexVal.Add(nums[i],i);
             i++;
         }
         return null;
