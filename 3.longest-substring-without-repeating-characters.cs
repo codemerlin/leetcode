@@ -102,7 +102,31 @@ public class Solution {
         return lastMax;
 
     }
+    public int SlidingWindowFastLengthOfLongestSubstring(string s) {
+        var uniqueSubstring=new HashSet<char>();
+        var i=0;
+        var j=0;
+        var ans=0;
+        while(i<s.Length && j<s.Length){
+            if(uniqueSubstring.Contains(s[j]))
+            {
+                uniqueSubstring.Remove(s[i]);
+                i++;
+            }
+            else{
+                uniqueSubstring.Add(s[j]);
+                j++;
+                ans = ans>j-i? ans: j-i;
+            }
+
+        }
+        return ans;
+
+    }
     public int LengthOfLongestSubstring(string s) {
+        return SlidingWindowFastLengthOfLongestSubstring(s);
+    }
+    public int BruteForceLengthOfLongestSubstring(string s) {
         if(s.Length==0)
             return 0;
         var i=1;
