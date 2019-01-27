@@ -56,11 +56,13 @@ public class Solution {
         int n = input.Length;
         var output = new char[n];
         var looper = 0;
+        // this is what was the crucial which element is next element
         int cycleLen = 2 * numRows - 2;
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j + i < n; j += cycleLen) {
                 output[looper]=input[j+i];
                 looper++;
+                // all the middle rows
                 if (i != 0 && i != numRows - 1 && j + cycleLen - i < n){
                     output[looper]=input[j+cycleLen-i];
                     looper++;
