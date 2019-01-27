@@ -61,12 +61,9 @@ public class Solution {
             for (int j = 0; j + i < n; j += cycleLen) {
                 output[looper]=input[j+i];
                 looper++;
-                // ret.append(s.charAt(j + i));
                 if (i != 0 && i != numRows - 1 && j + cycleLen - i < n){
-                    output[looper]=input[j+cycleLen-1];
+                    output[looper]=input[j+cycleLen-i];
                     looper++;
-
-                    // ret.append(s.charAt(j + cycleLen - i));
                 }
                     
             }
