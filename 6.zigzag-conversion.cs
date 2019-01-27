@@ -53,47 +53,25 @@ public class Solution {
     public string Convert(string input, int numRows) {
         if(numRows==1)
             return input;
-        var exception = numRows%2 ==0 ? numRows : numRows-1;
-        var n = input.Length;
-        var pass = 0;
-        var character = 0;
-        var looper =0;
-        var totalJump = 2*numRows-2;
+        int n = input.Length;
         var output = new char[n];
-        while (looper<n){
-            output[looper] = input[character];
-            // Console.WriteLine(character);
-            if(pass%(numRows-1)!=0){
-                if(character+exception<n-1 && looper<n-1) {
+        var looper = 0;
+        int cycleLen = 2 * numRows - 2;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j + i < n; j += cycleLen) {
+                output[looper]=input[j+i];
+                looper++;
+                // ret.append(s.charAt(j + i));
+                if (i != 0 && i != numRows - 1 && j + cycleLen - i < n){
+                    output[looper]=input[j+cycleLen-1];
                     looper++;
-                    //Console.WriteLine(character);
-                    //Console.WriteLine(exception);
-                    // Console.WriteLine("reading and adding from exception");
-                    // Console.WriteLine(character+exception);
-                    // Console.WriteLine("----------------");
-                    //Console.WriteLine(new string(output));
-                    output[looper]=input[character+exception];
+
+                    // ret.append(s.charAt(j + cycleLen - i));
                 }
+                    
             }
-            else {
-                pass = 0;
-                exception = numRows%2 ==0 ? numRows : numRows-1;
-            }
-            character += totalJump;
-            if(character > n-1) {
-                // Console.WriteLine("Pass changing");
-                // Console.WriteLine("Current Pass");
-                // Console.WriteLine(pass);
-                pass++;
-                // Console.WriteLine("New Pass");
-                // Console.WriteLine(pass);
-                character = pass;
-                if(pass>1)
-                    exception = exception/2;
-            }
-            looper++;
         }
         return new string(output);
-
+        
     }
 }
