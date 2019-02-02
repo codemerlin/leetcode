@@ -94,7 +94,7 @@ public class Solution {
 
         var si = 0;
         var pi = 0;
-        var prevChar = '';
+        char prevChar = null;
         var patternMatched = false;
         var starProcesing = false;
 
@@ -109,7 +109,7 @@ public class Solution {
                 continue;
             }
             if(p[pi]=='*') {
-                if(prevChar =='')
+                if(prevChar ==null)
                     return false;
 
                 if(prevChar == '.'){
@@ -128,7 +128,7 @@ public class Solution {
                         if (starProcessing) {
                             pi++;
                             starProcessing = false;
-                            prevChar = '';
+                            prevChar = null;
                             continue;
                         }
                         else {
