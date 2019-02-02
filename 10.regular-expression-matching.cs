@@ -83,6 +83,80 @@
  */
 public class Solution {
     public bool IsMatch(string s, string p) {
+        if(s.Length==0 && p.Length==0)
+            return true;
+        if(s.Length!=0 && p.Length==0)
+            return false;
+        if(s.Length==1 && p.Length==1 && (p[0]==s[0] || p[0]=='.'))
+            return true;
+        if(p.Length==1 && p[0]=='*' && s.Length==0)
+            return true;
+
+        var si = 0;
+        var pi = 0;
+        var prevChar = '';
+        var patternMatched = false;
+        var starProcesing = false;
+
+        while(si<si.Length || pi<pi.Length) {
+            if(pi>1 && p[pi]=='*') 
+                prevChar = p[pi-1];
+            // both match or pattern is a .
+            if(s[si]==p[pi] || p[pi]=='.') {
+                si++;
+                pi++;
+                patternMatched = true;
+                continue;
+            }
+            if(p[pi]=='*') {
+                if(prevChar =='')
+                    return false;
+
+                if(prevChar == '.'){
+                    si++;
+                    patternMatched = true;
+                    continue;
+                }
+                else {
+                    if(prevChar == s[si]) {
+                        si++;
+                        patternMatched = true;
+                        starProcessing = true;
+                        continue;
+                    }
+                    else {
+                        if (starProcessing) {
+                            pi++;
+                            starProcessing = false;
+                            prevChar = '';
+                            continue;
+                        }
+                        else {
+                            pi++;
+                            prevChar = '';
+                            patternMatched = false;
+                            continue;
+                        }
+                        
+                    }
+
+                }
+
+            }
+            else {
+                patternMatched = false;
+                pi++;
+                continue;
+            }
+
+            patternMatched = false;
+            break;
+        }
+
+
+        return patternMatched;
+
+        
         
     }
 }
