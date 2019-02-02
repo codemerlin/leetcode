@@ -146,7 +146,7 @@ public class Solution {
         }
 
 
-        return patternMatched;
+        return si<s.Length-1 ? false : patternMatched;
 
         
         
