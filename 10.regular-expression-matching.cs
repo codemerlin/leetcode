@@ -133,7 +133,7 @@ public class Solution {
                         }
                         else {
                             pi++;
-                            prevChar = '';
+                            prevChar = null;
                             patternMatched = false;
                             continue;
                         }
