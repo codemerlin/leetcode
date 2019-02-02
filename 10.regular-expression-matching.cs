@@ -106,6 +106,7 @@ public class Solution {
                 si++;
                 pi++;
                 patternMatched = true;
+                continue;
             }
             if(p[pi]=='*') {
                 if(prevChar ==null)
