@@ -94,7 +94,7 @@ public class Solution {
 
         var si = 0;
         var pi = 0;
-        char prevChar = null;
+        char? prevChar = null;
         var patternMatched = false;
         var starProcesing = false;
 
