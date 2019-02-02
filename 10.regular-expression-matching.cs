@@ -96,9 +96,9 @@ public class Solution {
         var pi = 0;
         char? prevChar = null;
         var patternMatched = false;
-        var starProcesing = false;
+        var starProcessing = false;
 
-        while(si<si.Length || pi<pi.Length) {
+        while(si<s.Length || pi<p.Length) {
             if(pi>1 && p[pi]=='*') 
                 prevChar = p[pi-1];
             // both match or pattern is a .
@@ -106,7 +106,6 @@ public class Solution {
                 si++;
                 pi++;
                 patternMatched = true;
-                continue;
             }
             if(p[pi]=='*') {
                 if(prevChar ==null)
@@ -115,27 +114,23 @@ public class Solution {
                 if(prevChar == '.'){
                     si++;
                     patternMatched = true;
-                    continue;
                 }
                 else {
                     if(prevChar == s[si]) {
                         si++;
                         patternMatched = true;
                         starProcessing = true;
-                        continue;
                     }
                     else {
                         if (starProcessing) {
                             pi++;
                             starProcessing = false;
                             prevChar = null;
-                            continue;
                         }
                         else {
                             pi++;
                             prevChar = null;
-                            patternMatched = false;
-                            continue;
+                            return false;
                         }
                         
                     }
@@ -144,13 +139,9 @@ public class Solution {
 
             }
             else {
-                patternMatched = false;
-                pi++;
-                continue;
+                return false;
             }
 
-            patternMatched = false;
-            break;
         }
 
 
