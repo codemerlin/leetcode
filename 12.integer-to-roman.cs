@@ -78,7 +78,21 @@
  * 
  */
 public class Solution {
-    public string IntToRoman(int num) {
+    public string IntToRoman(int num) 
+    {
+        return IntToRomanFlat(num);
+
+    }
+
+
+    private string IntToRomanFlat(int n) {
+        var M = new string[] {"", "M", "MM", "MMM"};											// ["", 1000, 2000, 3000]
+        var C = new string[] {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};		// ["", 100, 200, 300, 400, 500, 600, 700, 800, 900]
+        var X = new string[] {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};		// ["", 10, 20, 30, 40, 50, 60, 70, 80, 90]
+        var I = new string[] {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};		// ["", 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        return M[n / 1000] + C[(n % 1000) / 100] + X[(n % 100) / 10] + I[n % 10];
+    }
+    private string IntToRomanLoop(int num) {
         var values = new List<int>() {
             1,
             2,
