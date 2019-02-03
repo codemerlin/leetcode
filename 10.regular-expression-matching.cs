@@ -93,7 +93,7 @@ public class Solution {
       dp[s.Length,p.Length] = true;
 
       for(int i=s.Length; i>=0; i--) {
-          for(int j=p.Length; j>=0; j--) {
+          for(int j=p.Length-1; j>=0; j--) {
               var firstMatch = i < s.Length && 
                                 (p[j] == s[i] || p[j] =='.');
               if(j+1 < p.Length && p[j+1] == '*') {
