@@ -135,12 +135,15 @@ public class Solution {
                         else {
                             pi++;
                             prevChar = null;
-                            return false;
                         }
                         
                     }
 
                 }
+
+            }
+            else{
+                pi++;
 
             }
             
