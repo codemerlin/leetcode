@@ -84,8 +84,29 @@
 public class Solution {
     public bool IsMatch(string s, string p) {
         
-        return this.IsMatchRecursive(s,p);
+        return this.IsMatchDp(s,p);
         
+    }
+    
+    private bool IsMatchDp(string s, string p) {
+      var dp = new bool[s.Length+1][p.Length+1];
+      dp[s.Length][p.Length] = true;
+
+      for(int i=s.Length; i>=0; i--) {
+          for(int j=p.Length; j>=0; j--) {
+              var firstMatch = i < s.Length && 
+                                (p[j] == s[i] || p[i] =='.');
+              if(j=1 < p.Length && p[j+1] == '*') {
+                  dp[i][j] = dp[i][j+2] || firstMatch && dp[i+1][j];
+              } else {
+                  dp[i][j] = firstMatch && dp[i+1][j+1];
+              } 
+
+          }
+      }
+
+      return dp[0][0];
+
     }
 
     // basically a pattern matches if substings match
