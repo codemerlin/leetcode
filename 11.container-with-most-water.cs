@@ -41,8 +41,8 @@ public class Solution {
         var currentMax = 0;
         for(int i=0;i<height.Length;i++) {
             for(int j=i+1;j<height.Length;j++) {
-                var newArea = (input[i] < input[j] ? input[i] : input[j]) ? j;
-                currentMax = currentMax < newArea ? newArea : currentMax;
+                var newArea = ((input[i] < input[j]) ? input[i] : input[j]) * j;
+                currentMax = (currentMax < newArea) ? newArea : currentMax;
 
 
             }
