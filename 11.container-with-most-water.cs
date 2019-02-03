@@ -47,32 +47,16 @@ public class Solution {
         var right = height.Length - 1;
         var currentMax = 0;
         
-        while(left != right) {
+        while(left < right) {
             var newArea = (height[left] < height[right] ? height[left] : height[right]) * (right-left);
             currentMax = currentMax < newArea ? newArea : currentMax; 
-
-            newArea = (height[left+1] < height[right] ? height[left+1] : height[right]) * (right-(left+1));
-            if(currentMax < newArea) {
-                currentMax =  newArea; 
+            if(height[left]<height[right]) {
                 left++;
-                continue;
+
             }
-
-            newArea = (height[left] < height[right-1] ? height[left] : height[right-1]) * ((right-1)-left);
-             if(currentMax < newArea) {
-                currentMax =  newArea; 
-                right--;
-                continue;
-            }
-
-
-            newArea = (height[left+1] < height[right-1] ? height[left+1] : height[right-1]) * (right-left-2);
-            if(currentMax < newArea) {
-                currentMax =  newArea; 
-                left++;
+            else {
                 right--;
             }
-
 
         }
 
