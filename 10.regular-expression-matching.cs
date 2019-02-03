@@ -142,9 +142,9 @@ public class Solution {
                 }
 
             }
-            else{
-                pi++;
-
+            else
+            {
+                return false;
             }
             
         }
