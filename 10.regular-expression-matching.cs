@@ -145,7 +145,7 @@ public class Solution {
             else
             {
                 if(pi==0)
-                    pi++
+                    pi++;
                 else
                     return false;
             }
