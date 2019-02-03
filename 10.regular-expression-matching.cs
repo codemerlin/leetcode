@@ -91,6 +91,10 @@ public class Solution {
             return true;
         if(p.Length==1 && p[0]=='*' && s.Length==0)
             return true;
+        if(p.Length==1 && p[0]=='*' && s.Length>0)
+            return false;
+        if(p.Length==1 && s.Length>1)
+            return false;
 
         var si = 0;
         var pi = 0;
@@ -146,7 +150,7 @@ public class Solution {
         }
 
 
-        return si==s.Length-1 ? false : patternMatched;
+        return patternMatched;
 
         
         
