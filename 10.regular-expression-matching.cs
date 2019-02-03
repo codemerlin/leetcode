@@ -144,7 +144,10 @@ public class Solution {
             }
             else
             {
-                return false;
+                if(pi==0)
+                    pi++
+                else
+                    return false;
             }
             
         }
