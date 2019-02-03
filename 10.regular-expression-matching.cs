@@ -89,7 +89,7 @@ public class Solution {
     }
 
     // basically a pattern matches if substings match
-    private bool IsMatchRecursive(sting s, string p) {
+    private bool IsMatchRecursive(string s, string p) {
         if (pattern.IsNullOrEmpty()) return s.IsNullOrEmpty();
         var firstMatch = (!s.IsNullOrEmpty() && 
                         (p[0] == s[0] || p[0] == '.'));
