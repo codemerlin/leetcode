@@ -37,7 +37,7 @@
  * 
  */
 public class Solution {
-    public int MaxArea(int[] height) {
+    public int MaxArea(int[] input) {
         var currentMax = 0;
         for(int i=0;i<height.Length;i++) {
             for(int j=i+1;j<height.Length;j++) {
