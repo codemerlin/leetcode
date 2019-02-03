@@ -83,79 +83,24 @@
  */
 public class Solution {
     public bool IsMatch(string s, string p) {
-        if(s.Length==0 && p.Length==0)
-            return true;
-        if(s.Length!=0 && p.Length==0)
-            return false;
-        if(s.Length==1 && p.Length==1 && (p[0]==s[0] || p[0]=='.'))
-            return true;
-        if(p.Length==1 && p[0]=='*' && s.Length==0)
-            return true;
-        if(p.Length==1 && p[0]=='*' && s.Length>0)
-            return false;
-        if(p.Length==1 && s.Length>1)
-            return false;
+        
+        return this.IsMatchRecursive(s,p);
+        
+    }
 
-        var si = 0;
-        var pi = 0;
-        char? prevChar = null;
-        var patternMatched = false;
-        var starProcessing = false;
+    // basically a pattern matches if substings match
+    private bool IsMatchRecursive(sting s, string p) {
+        if pattern.IsNullOrEmpty() return s.IsNullOrEmpty();
+        var firstMatch = (!s.IsNullOrEmpty() && 
+                        (p[0] == s[0] || p[0] == '.'));
+        if(p.Length >=2 && p[1] == '*') {
+            return this.IsMatchRecursive(s,p.Substring(2)) 
+                || (firstMatch && this.IsMatchRecursive(s.Substring(1),p));
+        
 
-        while(si<s.Length && pi<p.Length) {
-            if(pi>=1 && p[pi]=='*') 
-                prevChar = p[pi-1];
-            // both match or pattern is a .
-            if(s[si]==p[pi] || p[pi]=='.') {
-                si++;
-                pi++;
-                patternMatched = true;
-                continue;
-            }
-            if(p[pi]=='*') {
-                if(prevChar ==null)
-                    return false;
-
-                if(prevChar == '.'){
-                    si++;
-                    patternMatched = true;
-                }
-                else {
-                    if(prevChar == s[si]) {
-                        si++;
-                        patternMatched = true;
-                        starProcessing = true;
-                    }
-                    else {
-                        if (starProcessing) {
-                            pi++;
-                            starProcessing = false;
-                            prevChar = null;
-                        }
-                        else {
-                            pi++;
-                            prevChar = null;
-                        }
-                        
-                    }
-
-                }
-
-            }
-            else
-            {
-                if(pi==0)
-                    pi++;
-                else
-                    return false;
-            }
-            
         }
-
-
-        return patternMatched;
-
-        
-        
+        else {
+            return firstMatch && this.IsMatchRecursive(s.Substring(1),p.Substring(1));
+        }
     }
 }
