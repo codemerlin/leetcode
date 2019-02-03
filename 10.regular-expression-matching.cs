@@ -90,7 +90,7 @@ public class Solution {
 
     // basically a pattern matches if substings match
     private bool IsMatchRecursive(string s, string p) {
-        if (p.IsNullOrEmpty()) return s.IsNullOrEmpty();
+        if (string.IsNullOrEmpty(p)) return string.IsNullOrEmpty(s);
         var firstMatch = (!s.IsNullOrEmpty() && 
                         (p[0] == s[0] || p[0] == '.'));
         if(p.Length >=2 && p[1] == '*') {
