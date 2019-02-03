@@ -38,7 +38,33 @@
  */
 public class Solution {
     public int MaxArea(int[] height) {
-        return MaxAreaBruteForce(height);
+        return MaxAreaFaster(height);
+        // return MaxAreaBruteForce(height);
+    }
+
+    private MaxAreaFaster(int[] height) {
+        var left = 0;
+        var right = height.Length - 1;
+        var currentMax = 0;
+        
+        while(left != right) {
+            var newArea = (height[left] < height[right] ? height[left] : height[right]) * (right-left);
+            currentMax = currentMax < newArea ? newArea : currentMax; 
+
+            newArea = (height[left+1] < height[right] ? height[left+1] : height[right]) * (right-(left+1));
+            currentMax = currentMax < newArea ? newArea : currentMax; 
+
+            newArea = (height[left] < height[right-1] ? height[left] : height[right-1]) * ((right-1)-left);
+            currentMax = currentMax < newArea ? newArea : currentMax; 
+
+            newArea = (height[left+1] < height[right-1] ? height[left+1] : height[right-1]) * (right-left-2);
+            currentMax = currentMax < newArea ? newArea : currentMax; 
+            left++;
+            right--;
+
+        }
+
+        return currentMax;
     }
 
     private int MaxAreaBruteForce(int[] height) {
