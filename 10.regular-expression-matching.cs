@@ -103,7 +103,7 @@ public class Solution {
         var starProcessing = false;
 
         while(si<s.Length && pi<p.Length) {
-            if(pi>1 && p[pi]=='*') 
+            if(pi>=1 && p[pi]=='*') 
                 prevChar = p[pi-1];
             // both match or pattern is a .
             if(s[si]==p[pi] || p[pi]=='.') {
