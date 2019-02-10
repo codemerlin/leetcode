@@ -33,6 +33,46 @@
  * 
  */
 public class Solution {
+    public IList<IList<int>> ThreeSum(int[] nums) {
+        //  return ThreeSumBruteForce(nums);
+        return ThreeSumImproved(nums);
+    }
+
+
+    private IList<IList<int>> ThreeSumImproved(int[] num) {
+        // this is based on 
+        //https://leetcode.com/problems/3sum/discuss/7380/Concise-O(N2)-Java-solution 
+        // and https://leetcode.com/problems/3sum/discuss/7380/Concise-O(N2)-Java-solution/209811
+        var sorted = num.ToList();
+        sorted.Sort();
+        num = sorted.ToArray();
+        IList<IList<int>> output = new List<IList<int>>();
+        for (int i = 0; i < num.Length-2 && num[i]<=0; i++) {
+            if (i == 0 ||  num[i] != num[i-1]) {
+                if (num[i] + num[i+1] + num[i+2] > 0) break;
+                var lo = i+1;
+                var hi = num.Length-1;
+                while (lo < hi) {
+                    int sum = num[i] + num[lo] + num[hi];
+                    if(sum<0) {
+                        lo++;
+                    }
+                    else if (sum>0) {
+                        hi--;
+                    }
+                    else if (sum ==0 ) {
+                        output.Add(new List<int>(){num[i], num[lo], num[hi]});
+                        while (lo < hi && num[lo] == num[lo+1]) lo++;
+                        while (lo < hi && num[hi] == num[hi-1]) hi--;
+                        lo++; 
+                        hi--;
+                    }
+                }
+            }
+        }
+        return output;
+    }
+
     private string GetBasicHash(List<int> combo) {
         var output = "";
         foreach(var s in combo) {
@@ -40,7 +80,7 @@ public class Solution {
         }
         return output;
     }
-    public IList<IList<int>> ThreeSum(int[] nums) {
+    private IList<IList<int>> ThreeSumBruteForce(int[] nums) {
         var unique =new List<string>();
 
         IList<IList<int>> output = new List<IList<int>>();
