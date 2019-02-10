@@ -33,8 +33,8 @@
  * 
  */
 public class Solution {
-    var result = new List<string>();
-    var map = new Dictionary<char,List<char>>() {
+    List<string> result = new List<string>();
+    Dictionary<char,List<char>> map = new Dictionary<char,List<char>>() {
             {'2', new List<char>() {'a','b','c'}},
             {'3', new List<char>() {'d','e','f'}},
             {'4', new List<char>() {'g','h','i'}},
@@ -45,30 +45,27 @@ public class Solution {
             {'9', new List<char>() {'w','x','y', 'z'}},
         };
 
-    public IList<string> LetterCombinations(string digits) {
+    private void backtrack(string combination, string next_digits) {
+        if(next_digits.Length ==0) {
+            result.Add(combination);
+            return;
+        }
+        var digit = next_digits[0];
+        var letters = map[digit];
+        for(int i=0;i<letters.Count;i++) {
+            var letter = map[digit][i];
+            backtrack(combination+letter.ToString(),next_digits.Substring(1));
+        }
 
+
+    } 
+
+    public IList<string> LetterCombinations(string digits) {
+        if(digits.Length !=0 )
+            backtrack("",digits);
+
+        return result;
         
     }
 
-    private IList<string> LetterCombinationsBruteForce(string digits) {
-            var totalNumber = 1; 
-        foreach(var c in digits) {
-            totalNumber *= map[c].Length;
-        }
-        var result = new char[totalNumber][digits.Length];
-
-        for(var w=0;w<digits.Length;w++) {
-            for(int l=0;l<totalNumber;l++) {
-                var currentCharMap =map[digits[w]];
-                var locator = l/currentCharMap.Length;
-                if(w!=0)
-                    locator = 
-
-                result[l][w] = currentCharMap[locator];
-            }
-        }
-
-
-
-    }
 }
