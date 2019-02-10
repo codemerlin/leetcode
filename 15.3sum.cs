@@ -33,7 +33,34 @@
  * 
  */
 public class Solution {
+    private string GetBasicHash(List<int> combo) {
+        var output = "";
+        foreach(var s in combo) {
+            output+=s.ToString();
+        }
+        return output;
+    }
     public IList<IList<int>> ThreeSum(int[] nums) {
-        
+        var unique =new List<string>();
+
+        IList<IList<int>> output = new List<IList<int>>();
+
+        for(var i=nums.Length-1; i>=0 ;i--) {
+            for(var j=i-1; j>=0 ;j--) {
+                for(var k=j-1; k>=0 ;k--) {
+                    if(nums[i]+nums[j]+nums[k] ==0) {
+                        var smallest = new List<int>() {nums[i],nums[j],nums[k]};
+                        smallest.Sort();
+                        var uniqueHash = GetBasicHash(smallest);
+                        if(!unique.Contains(uniqueHash)) {
+                            unique.Add(uniqueHash);
+                            output.Add(smallest);
+                        }
+                    }
+                }
+            }
+        }
+
+        return output;
     }
 }
