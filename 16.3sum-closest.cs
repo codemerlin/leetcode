@@ -31,8 +31,7 @@ public class Solution {
     }
     private int ThreeSumImproved(int[] num, int target) {
         // this is based on 
-        //https://leetcode.com/problems/3sum/discuss/7380/Concise-O(N2)-Java-solution 
-        // and https://leetcode.com/problems/3sum/discuss/7380/Concise-O(N2)-Java-solution/209811
+        //https://leetcode.com/problems/3sum-closest/discuss/7872/Java-solution-with-O(n2)-for-reference
         int result = num[0] + num[1] + num[num.Length -1 ];
         var sorted = num.ToList();
         sorted.Sort();
