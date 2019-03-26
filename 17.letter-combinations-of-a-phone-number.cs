@@ -33,8 +33,8 @@
  * 
  */
 public class Solution {
-    var result = new List<string>();
-    var map = new Dictionary<char,List<char>>() {
+    private List<string> result = new List<string>();
+    private Dictionary<char,List<char>> map = new Dictionary<char,List<char>>() {
             {'2', new List<char>() {'a','b','c'}},
             {'3', new List<char>() {'d','e','f'}},
             {'4', new List<char>() {'g','h','i'}},
@@ -46,29 +46,31 @@ public class Solution {
         };
 
     public IList<string> LetterCombinations(string digits) {
-
-        
+        return  LetterCombinationsBruteForce(digits);
     }
 
     private IList<string> LetterCombinationsBruteForce(string digits) {
-            var totalNumber = 1; 
-        foreach(var c in digits) {
-            totalNumber *= map[c].Length;
+        // this uses memoization
+        var i =0; 
+        var allCombos = new List<String>();
+        while(i<digits.Length) {
+            allCombos = getAllCombos(allCombos,map[digits[i]]);
+            i++;
         }
-        var result = new char[totalNumber][digits.Length];
+        return allCombos;
+    }
 
-        for(var w=0;w<digits.Length;w++) {
-            for(int l=0;l<totalNumber;l++) {
-                var currentCharMap =map[digits[w]];
-                var locator = l/currentCharMap.Length;
-                if(w!=0)
-                    locator = 
+    private List<string> getAllCombos(List<string> allCombos,List<char> newcharcters) {
+        if(allCombos.Count ==0) {
+            return newcharcters.Select(i=>i.ToString()).ToList(); 
+        }
 
-                result[l][w] = currentCharMap[locator];
+        var newCombos = new List<String>();
+        foreach(var str in allCombos) {
+            foreach(var newchar in newcharcters) {
+                newCombos.Add(str+newchar.ToString());
             }
         }
-
-
-
-    }
+        return newCombos;
+    } 
 }
