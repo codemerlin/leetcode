@@ -33,8 +33,8 @@
  * 
  */
 public class Solution {
-    List<string> result = new List<string>();
-    Dictionary<char,List<char>> map = new Dictionary<char,List<char>>() {
+    private List<string> result = new List<string>();
+    private Dictionary<char,List<char>> map = new Dictionary<char,List<char>>() {
             {'2', new List<char>() {'a','b','c'}},
             {'3', new List<char>() {'d','e','f'}},
             {'4', new List<char>() {'g','h','i'}},
@@ -45,27 +45,32 @@ public class Solution {
             {'9', new List<char>() {'w','x','y', 'z'}},
         };
 
-    private void backtrack(string combination, string next_digits) {
-        if(next_digits.Length ==0) {
-            result.Add(combination);
-            return;
-        }
-        var digit = next_digits[0];
-        var letters = map[digit];
-        for(int i=0;i<letters.Count;i++) {
-            var letter = map[digit][i];
-            backtrack(combination+letter.ToString(),next_digits.Substring(1));
-        }
-
-
-    } 
-
     public IList<string> LetterCombinations(string digits) {
-        if(digits.Length !=0 )
-            backtrack("",digits);
-
-        return result;
-        
+        return  LetterCombinationsBruteForce(digits);
     }
 
+    private IList<string> LetterCombinationsBruteForce(string digits) {
+        // this uses memoization
+        var i =0; 
+        var allCombos = new List<String>();
+        while(i<digits.Length) {
+            allCombos = getAllCombos(allCombos,map[digits[i]]);
+            i++;
+        }
+        return allCombos;
+    }
+
+    private List<string> getAllCombos(List<string> allCombos,List<char> newcharcters) {
+        if(allCombos.Count ==0) {
+            return newcharcters.Select(i=>i.ToString()).ToList(); 
+        }
+
+        var newCombos = new List<String>();
+        foreach(var str in allCombos) {
+            foreach(var newchar in newcharcters) {
+                newCombos.Add(str+newchar.ToString());
+            }
+        }
+        return newCombos;
+    } 
 }
